@@ -1,0 +1,26 @@
+{% if user.is_authenticated %}
+Hi {{ user.username }}, tervetuloa sivustolle!
+
+<h2 class="sub">Uutisia:</h2>
+{% if headline_list %}
+    <ul>
+    {% for headline in headline_list %}
+        <li>{{ headline.news_headline }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No headlines are available.</p>
+{% endif %}
+
+</div>
+<div class="logout">
+    <button><a href="{% url 'logged_out' %}">logout</a></button>
+</div>
+
+
+{% else %}
+<div class="login">
+    <button><a href="{% url 'login' %}">login</a></button>
+</div>
+
+{% endif %}

@@ -1,0 +1,13 @@
+<div class="news_table">
+
+    {% if bio_list %}
+        {% for person in bio_list %}
+        <h2>{{ person.page_title }}</h2>
+        <li>{{ person.page_summary }}</li>
+        <a href="{{ person.page_url }}">{{ person.page_url }}
+</a>
+      {% endfor %}
+    {% else %}
+      <p>No Bios are available.</p>
+    {% endif %}
+</div>

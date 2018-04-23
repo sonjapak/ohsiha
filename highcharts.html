@@ -1,0 +1,109 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
+</script>
+<script src="https://code.highcharts.com/highcharts.js">
+</script>
+
+<div id="chart1" style="width:49%; height:40%;">
+</div>
+<div id="chart2" style="width:49%; height:40%; position:absolute; bottom:50px;">
+</div>
+<div id="chart3" style="width:49%; height:40%; position:absolute; top:125px; right:10px;">
+</div>
+<div id="chart4" style="width:49%; height:40%; position:absolute; bottom:45px; right:10px;">
+</div>
+
+
+<script>
+$(function () {
+    var followers = new Array();
+            $.getJSON('http://127.0.0.1:8000/api/json_data', function(data){
+          for (i = 0; i < data.length; i++){
+              followers.push([data[i].name, data[i].followers_count])
+  }
+  $('#chart1').highcharts({
+  chart: {type: "bar"},
+  title: {text: "Twitter-seuraajia"},
+  xAxis: {type: 'category', allowDecimals: false,
+    title: {
+      text: ""}
+  },
+  yAxis: {
+    title: {
+      text: "Seuraajia"
+    }
+  },
+  series: [{
+      name: 'Summa',
+      data: followers
+  }]
+});
+});
+});
+$(function () {
+var statuses = new Array();
+  $.getJSON('http://127.0.0.1:8000/api/json_data', function(data) {
+  for (i = 0; i < data.length; i++)
+{
+    statuses.push([data[i].name, data[i].statuses_count])
+  }
+  $('#chart2').highcharts({
+    chart: {
+      type: "column"
+    },
+    title: {
+      text: "Statuspäivitysten määrä"
+    },
+    xAxis: {
+      type: 'category',
+      allowDecimals: false,
+      title: {
+        text: ""
+      }
+    },
+    yAxis: {
+      title: {
+        text: "Statuspäivityksiä"
+      }
+    },
+    series: [{
+      name: 'Summa',
+      data: statuses
+    }]
+  });
+});
+});
+$(function () {
+var friends = new Array();
+$.getJSON('http://127.0.0.1:8000/api/json_data', function(data) {
+  for (i = 0; i < data.length; i++){
+      friends.push([data[i].name, data[i].friends_count])
+    }
+    $('#chart3').highcharts({
+        chart: {
+          type: "pie"
+        },
+        title: {
+          text: "Kaverit"
+        },
+        xAxis: {
+          type: 'category',
+          allowDecimals: false,
+          title: {
+            text: ""
+          }
+        },
+        yAxis: {
+          title: {
+            text: "Seuraajat"
+          }
+        },
+        series: [{
+          name: 'Uutissivu',
+          data: friends
+        }]
+      });
+    });
+  });
+</script>
+</body>
+</html>
